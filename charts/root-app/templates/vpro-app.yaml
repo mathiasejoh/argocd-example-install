@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vpro-app
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mathiasejoh/vprofilecharts.git
+    targetRevision: HEAD
+    path: .
+    helm:
+      valueFiles:
+        - app-values.yaml 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vprof
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
