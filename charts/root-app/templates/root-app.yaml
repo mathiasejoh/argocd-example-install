@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: root-app
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+  - argocd.argoproj.io/resources-finalizer
 spec:
   project: default
   source:
@@ -12,10 +12,10 @@ spec:
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: default
   syncPolicy:
     automated:
       selfHeal: true
       prune: true
-    syncOptions:
-      - CreateNamespace=true
+
+
