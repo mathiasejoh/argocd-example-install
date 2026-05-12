@@ -3,17 +3,19 @@ kind: Application
 metadata:
   name: root-app
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/mathiasejoh/argocd-example-install.git
+    repoURL: 'https://github.com/mathiasejoh/argocd-example-install.git'
     path: charts/root-app/
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: argocd
   syncPolicy:
     automated:
-      prune: true
       selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
